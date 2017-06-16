@@ -7,22 +7,29 @@ conn_str = u'system/oracle@//52.90.246.44:49161/xe'
 conn = cx.connect(conn_str)
 cur = conn.cursor()
 #######################################
-#### Step 2: FETCH LATEST ROW ID FROM TABLE###
-query = "SELECT * from integris.TALL1000"
-cur.execute(query)
-cur.fetchone()
+#### Step 2: Check connection###
+# query = "SELECT * from integris.TALL1000"
+# cur.execute(query)
+# cur.fetchone()
 
-datafile = pd.read_csv('/ path / to / file')
+datafile = pd.read_csv('tall/tall_0.csv')
+d_cols = list(datafile.columns)
 for index, row in datafile.iterrows():
-    sqlquery = "INSERT INTO integris.TALL1000 VALUES ('%s','%s','%s','%s','%s')" % (
-    row['user_id'], row['gid'], row['enum'], row['value'], row['last_modified'])
-
-    # cur.execute(sqlquery)
-    print(x)
-    print(sqlquery)
-    x = x + 1
+    sqlquery = "INSERT INTO integris.TALLCONNECTIONTEST VALUES ('%s','%s','%s','%s','%s')" % (tuple([row[i] for i in d_cols]))
 
 
-conn.commit()
+    #row['user_id'], row['gid'], row['enum'], row['value'], row['last_modified'])
+    # add batching
+    print(index)
+    cur.execute(sqlquery)
+    if index % 10 == 0:
+        conn.commit()
+        print('conn.commit()')
+
+    if index == 50:
+        break
+    #print(sqlquery)
+
+# conn.commit()
 
 conn.close()
