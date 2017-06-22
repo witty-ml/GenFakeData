@@ -2,9 +2,9 @@
 # python 3
 import pandas as pd
 import random as rd
-import names
+import names # pip install names
 from datetime import datetime
-import radar
+import radar #pip install radar
 import usernameLists as usl
 import emailDomains as ed
 from faker import Factory # pip install Faker

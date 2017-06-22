@@ -42,7 +42,7 @@ def gen_user_data():
         flag = True
         while flag:
             number = rd.randint(1,10)
-            if d == 'address' and number == 5:  # 20% chance
+            if d == 'address' and number == 5:  
                 street0, city0, state0, postal0 = df.gen_address()
                 user_data['address'].append(street0 + '|' + city0 + '|' + state0 + '|' + postal0)
                 user_data['street'].append(street0)
@@ -158,7 +158,6 @@ while table < totalnumoftables:  # loop condition to construct tables
         except:
             print('error with user creation function')
 
-        # todo fix this logic: should be fixed
         try:
             # generate group ids
             while gid_flag == True: # flag is true get new group size and set groupid
@@ -286,6 +285,7 @@ while table < totalnumoftables:  # loop condition to construct tables
     table +=1
     startingdatasubjectid += userspertable
 
+# TODO write this to be more ram friendly
 # write stats
 tallstatsfile = current_dir + '/stats/tallstats.csv'
 tall_stats.to_csv(tallstatsfile,  index = False)
